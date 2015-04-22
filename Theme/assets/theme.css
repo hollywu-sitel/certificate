@@ -56,12 +56,20 @@ h1, h2, h3 {
 }
 
 .widget {
-    width: 100px;
-    height: 50px;
+    width: 90px;
+    /*height: 20px;*/
     padding: 10px;
     margin: 10px;
     /*border: 1px solid black;*/
-    background-color: gray;
+    background-color: gray; /*transparent;/*gray;*/
+}
+
+.widget .ui-selected {
+    border: 1px solid black;
+}
+
+.text {
+    margin: auto;
 }
 
 .content {
@@ -78,3 +86,8 @@ h1, h2, h3 {
     height: 500px;
 }
 
+.text {
+    width: 100%;
+    height: 100%;
+    white-space: nowrap;
+}

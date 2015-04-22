@@ -57,6 +57,7 @@ $(function() {
 		cursor: "move",
 		tolerance: "fit",
 	})
+	//.selectable();
 
 
 	// drop widgets into content space
@@ -67,6 +68,7 @@ $(function() {
 			if ($(ui.draggable)[0].id != "") {
 	
 				x = $(ui.helper).clone();
+				x.id = $(ui.draggable)[0].id;
 				$(ui.helper).remove();
 
 				x.draggable({
@@ -81,12 +83,15 @@ $(function() {
 				})
 				.resizable({
 					maxHeight: $(".content").height,
-					maxWidth: $(".content").width
-				});
+					maxWidth: $(".content").width,
+					resize: function(event, ui) {
+						ui.element.css("font-size", ui.size.height);
+						ui.element.width($(this).find("span:first").width());
+					}
+				})
+				//.selectable();
 
-			x.appendTo(".content");
-			//$(this).append(x);
-			
+				x.appendTo(".content");
 			}
         	}
 	});
