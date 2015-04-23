@@ -1,52 +1,9 @@
-//this is just an example how to add JavaScript to your theme
-/*interact('.widget')
-   .draggable({
- //       intertia: true,
-	onmove: dragMoveListener
-    })
-    .resizable({
-	edges: {left: true, right: true, bottom: true, top: true}
-     })
-    .on('resizemove', function(event) {
-	var target = event.target,
-        x = (parseFloat(target.getAttribute('data-x')) || 0),
-        y = (parseFloat(target.getAttribute('data-y')) || 0);
-
-        // update the element's style
-        target.style.width  = event.rect.width + 'px';
-        target.style.height = event.rect.height + 'px';
-    
-        // translate when resizing from top or left edges
-        x += event.deltaRect.left;
-        y += event.deltaRect.top;
-
-       target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px,' + y + 'px)';
- 
-       target.setAttribute('data-x', x);
-       target.setAttribute('data-y', y);
-//       target.textContent = event.rect.width + '×' + event.rect.height;
-})
-;
-
-
-functioghtn dragMoveListener (event) {
-    var target = event.target,
-        // keep the dragged position in the data-x/data-y attributes
-           x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-           y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
- 
-       // translate the element
-           target.style.webkitTransform =
-           target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-
-       // update the posiion attributes
-            target.setAttribute('data-x', x);
-            target.setAttribute('data-y', y);
-}
-
-*/
-
+// for widget clone
 var x = null;
+var plugins = [];
+
+// intialize selectable widget
+var selected = $([]), offset = {top:0, left:0};
 
 $(function() {
 
@@ -57,7 +14,6 @@ $(function() {
 		cursor: "move",
 		tolerance: "fit",
 	})
-	
 
 	// drop widgets into content space
 	$('.content').droppable({
@@ -67,6 +23,8 @@ $(function() {
 			if ($(ui.draggable)[0].id != "") {
 
 				x = $(ui.helper).clone();
+				plugins.push($(ui.draggable)[0].id);	// for delete
+				x.addClass($(ui.draggable)[0].id);	// for delete
 				$(ui.helper).remove();
 
 				x.draggable({
@@ -87,9 +45,18 @@ $(function() {
 						ui.element.width($(this).find("span:first").width());
 					}
 				});
-				
+
+				x.addClass('delete');	// for delete
 				x.appendTo(".content");
 			}
         	}
 	});
+});
+
+// delete element on backspace
+// TODO crude code, fix later
+$(document).on('keydown', function(e){
+    if(e.keyCode === 8){
+       $('div.' + plugins[plugins.length-1] +'.delete').remove();
+    }
 });
