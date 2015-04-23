@@ -60,13 +60,14 @@ h1, h2, h3 {
     /*height: 20px;*/
     padding: 10px;
     margin: 10px;
-    /*border: 1px solid black;*/
-    background-color: gray; /*transparent;/*gray;*/
+    border: 1px dotted gray;
+    background-color: transparent; /*gray; /*transparent;/*gray;*/
 }
 
-.widget .ui-selected {
-    border: 1px solid black;
+/*.widget .ui-selected {
+    border: 1px dotted black;
 }
+*/
 
 .text {
     margin: auto;
