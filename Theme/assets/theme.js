@@ -1,9 +1,9 @@
 // for widget clone
 var x = null;
-var plugins = [];
+//var plugins = [];
 
 // intialize selectable widget
-var selected = $([]), offset = {top:0, left:0};
+//var selected = $([]), offset = {top:0, left:0};
 
 $(function() {
 
@@ -23,8 +23,8 @@ $(function() {
 			if ($(ui.draggable)[0].id != "") {
 
 				x = $(ui.helper).clone();
-				plugins.push($(ui.draggable)[0].id);	// for delete
-				x.addClass($(ui.draggable)[0].id);	// for delete
+				//plugins.push($(ui.draggable)[0].id);	// for delete
+				//x.addClass($(ui.draggable)[0].id);	// for delete
 				$(ui.helper).remove();
 
 				x.draggable({
@@ -35,6 +35,9 @@ $(function() {
 					
 					drop: function(event, ui) {
 						$(ui.draggable).remove();
+					},
+					drag: function(event, ui) {
+						x.addClass("ui-selected");
 					}
 				})
 				.resizable({
@@ -43,6 +46,18 @@ $(function() {
 					resize: function(event, ui) {
 						ui.element.css("font-size", ui.size.height);
 						ui.element.width($(this).find("span:first").width());
+					}
+				})
+				.selectable();
+
+				x.click( function(e){
+					if ($(this).hasClass("ui-selected")) {
+					    // remove selected class from element if already selected
+					    $(this).removeClass("ui-selected");
+					}
+					else {
+					    // add selecting class if not
+					    $(this).addClass("ui-selected");
 					}
 				});
 
@@ -57,6 +72,7 @@ $(function() {
 // TODO crude code, fix later
 $(document).on('keydown', function(e){
     if(e.keyCode === 8){
-       $('div.' + plugins[plugins.length-1] +'.delete').remove();
+       //$('div.' + plugins[plugins.length-1] +'.delete').remove();
+	$('div.ui-selected.delete').remove();
     }
 });
